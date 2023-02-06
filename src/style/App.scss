@@ -1,0 +1,22 @@
+#info {
+  z-index: 999;
+  background-color: white;
+  width: 25%;
+  height: 100vh;
+  position: absolute;
+  left: 12.5%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  #title {
+    font-size: 30px;
+    text-align: center;
+  }
+  #address {
+    font-size: 15px;
+    text-align: center;
+  }
+  #number {
+    font-size: 15px;
+    text-align: center;
+  }
+}
