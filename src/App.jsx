@@ -1,12 +1,12 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import data from "./assets/markets.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./style/App.scss";
 
 function App() {
   const [isClicked, setIsClicked] = useState(0);
   const markets = data;
-  console.log(isClicked);
+  // console.log(isClicked);
   const getMarkers = (data) => {
     const result = [];
     for (let i = 0; i < Object.keys(data).length; i++) {
@@ -29,9 +29,15 @@ function App() {
     >
       {getMarkers(markets)}
       <div id="info">
-        <div id="title">{data[isClicked].name ?? "title"}</div>
-        <div id="address">{data[isClicked].address ?? "address"}</div>
-        <div id="number">전화번호: {data[isClicked].number ?? "number"}</div>
+        <div className="text">
+          <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+          <br />
+          <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
+          <br />
+          <div id="address">{data[isClicked].address ?? "주소 정보 없음"}</div>
+          <br />
+          <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
+        </div>
       </div>
     </Map>
   );

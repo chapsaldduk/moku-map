@@ -1,22 +1,24 @@
 #info {
   z-index: 999;
-  background-color: white;
-  width: 25%;
+  background-color: #ffffff;
+  width: 340px;
   height: 100vh;
   position: absolute;
-  left: 12.5%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  #title {
-    font-size: 30px;
-    text-align: center;
-  }
-  #address {
-    font-size: 15px;
-    text-align: center;
-  }
-  #number {
-    font-size: 15px;
-    text-align: center;
+  left: 0%;
+  transform: translateY(-50%);
+  .text {
+    margin-top: 55px;
+    width: 340px;
+    #title {
+      font-size: 30px;
+      text-align: center;
+    }
+    #type,
+    #address,
+    #number {
+      font-size: 15px;
+      text-align: center;
+    }
   }
 }
