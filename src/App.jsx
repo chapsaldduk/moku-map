@@ -92,32 +92,36 @@ function App() {
 
   //홍대입구역: {lat: 37.5579, lng: 126.9244,}
   return (
-    <Map
-      center={{
-        lat: 37.5579,
-        lng: 126.9244,
-      }} // 현재 위치 시작, default 홍대입구역
-      id="Map"
-      level={9}
-    >
-      {getMarkers(markets)}
-      {/* {getMyMarkers()} */}
-      <div id="info">
-        <img src="./assets/logo/모쿠.png" alt="" />
-        <span className="line"></span>
-        <div className="text">
-          <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
-          <br />
-          <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
-          <br />
-          <div id="address">{data[isClicked].address ?? "주소 정보 없음"}</div>
-          <br />
-          <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
-          <br />
-          {/* 영업시간 */}
-          {getOpenTime()}
+    <div id="App">
+      <Map
+        center={{
+          lat: 37.5579,
+          lng: 126.9244,
+        }} // 현재 위치 시작, default 홍대입구역
+        id="Map"
+        level={9}
+      >
+        {getMarkers(markets)}
+        {/* {getMyMarkers()} */}
+        <div id="info">
+          <img src="./assets/logo/모쿠.png" alt="" />
+          <span className="line"></span>
+          <div className="text">
+            <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            <br />
+            <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
+            <br />
+            <div id="address">
+              {data[isClicked].address ?? "주소 정보 없음"}
+            </div>
+            <br />
+            <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
+            <br />
+            {/* 영업시간 */}
+            {getOpenTime()}
+          </div>
         </div>
-      </div>
+      </Map>
       <img id="logo-mobile" src="./assets/logo/모쿠.png" alt="" />
       <div id="info-mobile">
         <span className="line"></span>
@@ -139,7 +143,7 @@ function App() {
           <br />
         </div>
       </div>
-    </Map>
+    </div>
   );
 }
 export default App;
