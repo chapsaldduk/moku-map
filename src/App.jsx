@@ -113,7 +113,12 @@ function App() {
               {data[isClicked].address ?? "주소 정보 없음"}
             </div>
             <br />
-            <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
+            <div id="number">
+              {data[isClicked].number !== undefined &&
+              data[isClicked].number !== null
+                ? `☎ ${data[isClicked].number}`
+                : " "}
+            </div>
             <br />
             {/* 영업시간 */}
             {getOpenTime()}
