@@ -5,31 +5,36 @@ import "./style/App.scss";
 
 function App() {
   const [isClicked, setIsClicked] = useState(0);
-  const [isLat, setIsLat] = useState();
-  const [isLon, setIsLon] = useState();
+  // const [isChanged, setIsChanged] = useState(false);
+  // const [isLat, setIsLat] = useState();
+  // const [isLon, setIsLon] = useState();
   const markets = data;
 
-  setInterval(() => getLocate(), 1000);
+  // const getLocate = () => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(function (position) {
+  //       setIsLat(position.coords.latitude);
+  //       setIsLon(position.coords.longitude);
+  //     });
+  //   }
+  // };
 
-  const getLocate = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setIsLat(position.coords.latitude);
-        setIsLon(position.coords.longitude);
-      });
-    }
-  };
-  const getMyMarkers = () => {
-    console.log("Me!");
-    return (
-      <MapMarker
-        key={"myLocation"}
-        position={{ lat: isLat, lng: isLon }}
-        clickable={true}
-      />
-    );
-  };
+  // setInterval(() => getLocate(), 1000);
+  // getLocate();
 
+  /** user's location */
+  // const getMyMarkers = () => {
+  //   console.log("Me!");
+  //   return (
+  //     <MapMarker
+  //       key={"myLocation"}
+  //       position={{ lat: isLat, lng: isLon }}
+  //       clickable={true}
+  //     />
+  //   );
+  // };
+
+  /** marker */
   const getMarkers = (data) => {
     const result = [];
     for (let i = 0; i < Object.keys(data).length; i++) {
@@ -38,13 +43,16 @@ function App() {
           key={i}
           position={{ lat: data[i].latitude, lng: data[i].longitude }}
           clickable={true}
-          onClick={() => setIsClicked(i)}
+          onClick={() => {
+            setIsClicked(i);
+          }}
         ></MapMarker>
       );
     }
     return result;
   };
 
+  /** open time and find road */
   const getOpenTime = () => {
     if (isClicked !== 0) {
       return (
@@ -65,22 +73,35 @@ function App() {
           <span>토: {data[isClicked].sat ?? " "}</span>
           <br />
           <span>일: {data[isClicked].sun ?? " "}</span>
+          <br />
+          <br />
+          <span className="gil">
+            <a
+              href={`https://map.kakao.com/link/to/${data[isClicked].name},${data[isClicked].latitude},${data[isClicked].longitude}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              길찾기
+            </a>
+          </span>
         </div>
       );
     }
     return " ";
   };
 
+  //홍대입구역: {lat: 37.5579, lng: 126.9244,}
   return (
     <Map
       center={{
-        lat: isLat ?? 37.5579,
-        lng: isLon ?? 126.9244,
+        lat: 37.5579,
+        lng: 126.9244,
       }} // 현재 위치 시작, default 홍대입구역
       id="Map"
+      level={9}
     >
       {getMarkers(markets)}
-      {getMyMarkers()}
+      {/* {getMyMarkers()} */}
       <div id="info">
         <img src="./assets/logo/모쿠.png" alt="" />
         <span className="line"></span>
@@ -93,9 +114,29 @@ function App() {
           <br />
           <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
           <br />
-
           {/* 영업시간 */}
           {getOpenTime()}
+        </div>
+      </div>
+      <img id="logo-mobile" src="./assets/logo/모쿠.png" alt="" />
+      <div id="info-mobile">
+        <span className="line"></span>
+        <div className="text">
+          <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+          <br />
+          <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
+          <br />
+          <div id="address">{data[isClicked].address ?? "주소 정보 없음"}</div>
+          <br />
+          <a href={`tel:${data[isClicked].number}`}>
+            <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
+          </a>
+          <br />
+          {/* 영업시간 */}
+          {getOpenTime()}
+          <br />
+          <br />
+          <br />
         </div>
       </div>
     </Map>
