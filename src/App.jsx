@@ -59,7 +59,6 @@ function App() {
         <div id="opentime">
           <span className="title">영업시간</span>
           <br />
-          <br />
           <span>{`월: ${data[isClicked].mon}` ?? " "}</span>
           <br />
           <span>화: {data[isClicked].tue ?? " "}</span>
@@ -81,7 +80,7 @@ function App() {
               target="_blank"
               rel="noreferrer"
             >
-              길찾기
+              카카오맵 길찾기
             </a>
           </span>
         </div>
@@ -108,7 +107,6 @@ function App() {
           <span className="line"></span>
           <div className="text">
             <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
-            <br />
             <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
             <br />
             <div id="address">
@@ -126,6 +124,8 @@ function App() {
       <div id="info-mobile">
         <span className="line"></span>
         <div className="text">
+          <br />
+          <br />
           <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
           <br />
           <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
@@ -133,7 +133,12 @@ function App() {
           <div id="address">{data[isClicked].address ?? "주소 정보 없음"}</div>
           <br />
           <a href={`tel:${data[isClicked].number}`}>
-            <div id="number">{data[isClicked].number ?? "전화번호 없음"}</div>
+            <div id="number" className="number-mobile">
+              {data[isClicked].number !== undefined &&
+              data[isClicked].number !== null
+                ? `☎ ${data[isClicked].number}`
+                : " "}
+            </div>
           </a>
           <br />
           {/* 영업시간 */}

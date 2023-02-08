@@ -1,9 +1,9 @@
 {
   "0": {
-    "name": "매장 정보를 확인하기 위해서 마커를 클릭해주세요",
+    "name": "매장 정보는 마커를 클릭해주세요",
     "type": " ",
     "address": " ",
-    "number": " ",
+    "number": null,
     "latitude": "",
     "longitude": ""
   },
