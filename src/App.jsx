@@ -106,7 +106,15 @@ function App() {
           <img src="./assets/logo/모쿠.png" alt="" />
           <span className="line"></span>
           <div className="text">
-            <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            {isClicked === 0 ? (
+              <div id="title">
+                <span>매장 정보는</span>
+                <br />
+                <span>마커를 클릭해주세요</span>
+              </div>
+            ) : (
+              <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            )}
             <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
             <br />
             <div id="address">
@@ -124,14 +132,26 @@ function App() {
             {getOpenTime()}
           </div>
         </div>
+        <a href="https://bit.ly/3Y3HeJX" target="_blank" rel="noreferrer">
+          <div className="opinion-button">의견 남기기</div>
+        </a>
       </Map>
+
       <img id="logo-mobile" src="./assets/logo/모쿠.png" alt="" />
       <div id="info-mobile">
         <span className="line"></span>
         <div className="text">
           <br />
           <br />
-          <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+          {isClicked === 0 ? (
+            <div id="title">
+              <span>매장 정보는</span>
+              <br />
+              <span>마커를 클릭해주세요</span>
+            </div>
+          ) : (
+            <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+          )}
           <br />
           <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
           <br />

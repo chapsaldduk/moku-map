@@ -73,6 +73,18 @@ a.visited {
     }
   }
 }
+.opinion-button {
+  background-color: $symbol-color;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0%;
+  z-index: 9999;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  font-weight: 600;
+}
 #info-mobile {
   display: none;
 }
@@ -124,7 +136,12 @@ a.visited {
       }
     }
     #number {
-      // text-decoration: underline;
+      .underline {
+        text-decoration: underline;
+      }
     }
+  }
+  .opinion-button {
+    font-weight: 500;
   }
 }
