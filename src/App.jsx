@@ -22,7 +22,7 @@ function App() {
 
   // 1초마다 갱신
   setInterval(() => getLocate(), 2000);
-  getLocate();
+  // getLocate();
 
   /** user's location */
   const getMyMarker = () => {
@@ -103,7 +103,7 @@ function App() {
         level={3} // project: 9
       >
         {getMarkers(markets)}
-        {/* {getMyMarker()} */}
+        {getMyMarker()}
         <div id="info">
           <img src="./assets/logo/모쿠.png" alt="" />
           <span className="line"></span>
