@@ -10,6 +10,7 @@ function App() {
   // const [isLon, setIsLon] = useState();
   const markets = data;
 
+  /** 현재 위치 정보 -> state isLat, isLon에 저장 */
   // const getLocate = () => {
   //   if (navigator.geolocation) {
   //     navigator.geolocation.getCurrentPosition(function (position) {
@@ -19,6 +20,7 @@ function App() {
   //   }
   // };
 
+  // 1초마다 갱신
   // setInterval(() => getLocate(), 1000);
   // getLocate();
 
@@ -89,7 +91,7 @@ function App() {
     return " ";
   };
 
-  //홍대입구역: {lat: 37.5579, lng: 126.9244,}
+  //홍대입구역: {lat: 37.5579, lng: 126.9244}
   return (
     <div id="App">
       <Map
