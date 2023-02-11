@@ -19,6 +19,7 @@ function App() {
       });
     }
     else{
+      // default: 홍대입구역
       setIsLat(37.5579);
       setIsLon(126.9244);
     }
@@ -33,6 +34,13 @@ function App() {
         key={"myLocation"}
         position={{ lat: isLat, lng: isLon }}
         clickable={false}
+        image={{
+          src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // star mark
+          size: {
+            width: 24,
+            height: 35
+          },
+        }}
       />
     );
   };
@@ -56,7 +64,7 @@ function App() {
   };
 
   /** open time and find road */
-  const getOpenTime = () => {
+  const getContent = () => {
     if (isClicked !== 0) {
       return (
         <div id="opentime">
@@ -132,7 +140,7 @@ function App() {
             </div>
             <br />
             {/* 영업시간 */}
-            {getOpenTime()}
+            {getContent()}
           </div>
         </div>
         <a href="https://bit.ly/3Y3HeJX" target="_blank" rel="noreferrer">
@@ -169,8 +177,8 @@ function App() {
             </div>
           </a>
           <br />
-          {/* 영업시간 */}
-          {getOpenTime()}
+          {/* 영업시간, 길찾기 */}
+          {getContent()}
           <br />
           <br />
           <br />
