@@ -129,8 +129,10 @@ function App() {
     <div id="App">
       <Map
         center={{
-          lat: isStartLat ?? 37.5579,
-          lng: isStartLon ?? 126.9244,
+          // lat: isStartLat ?? 37.5579,
+          // lng: isStartLon ?? 126.9244,
+          lat: 37.5579,
+          lng: 126.9244,
         }} // 현재 위치 시작, default 홍대입구역
         id="Map"
         level={9} // project: 9
