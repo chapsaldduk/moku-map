@@ -8,7 +8,24 @@ function App() {
   // const [isChanged, setIsChanged] = useState(false);
   const [isLat, setIsLat] = useState();
   const [isLon, setIsLon] = useState();
+  const [isStartLat, setIsStartLat] = useState();
+  const [isStartLon, setIsStartLon] = useState();
   const markets = data;
+
+
+  const getStartLocate = () =>{
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        setIsStartLat(position.coords.latitude);
+        setIsStartLon(position.coords.longitude);
+      });
+    }
+    else{
+      // default: 홍대입구역
+      setIsLat(37.5579);
+      setIsLon(126.9244);
+  }
+}
 
   /** 현재 위치 정보 -> state isLat, isLon에 저장 */
   const getLocate = () => {
@@ -103,10 +120,13 @@ function App() {
   //홍대입구역: {lat: 37.5579, lng: 126.9244}
   return (
     <div id="App">
+      {
+      getStartLocate() //시작위치 가져오기
+      }
       <Map
         center={{
-          lat: isLat ?? 37.5579,
-          lng: isLon ?? 126.9244,
+          lat: isStartLat ?? 37.5579,
+          lng: isStartLon ?? 126.9244,
         }} // 현재 위치 시작, default 홍대입구역
         id="Map"
         level={3} // project: 9
