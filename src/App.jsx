@@ -13,20 +13,21 @@ function App() {
   /** 현재 위치 정보 -> state isLat, isLon에 저장 */
   const getLocate = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
+      navigator.geolocation.watchPosition(function (position) {
         setIsLat(position.coords.latitude);
         setIsLon(position.coords.longitude);
       });
     }
+    else{
+      setIsLat(37.5579);
+      setIsLon(126.9244);
+    }
   };
+  getLocate();
 
-  // 1초마다 갱신
-  setInterval(() => getLocate(), 2000);
-  // getLocate();
 
   /** user's location */
   const getMyMarker = () => {
-    console.log("Me!");
     return (
       <MapMarker
         key={"myLocation"}
