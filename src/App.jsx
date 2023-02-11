@@ -15,7 +15,7 @@ function App() {
 
   const getStartLocate = () =>{
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
+      navigator.geolocation.currentPosition(function (position) {
         setIsStartLat(position.coords.latitude);
         setIsStartLon(position.coords.longitude);
       });
