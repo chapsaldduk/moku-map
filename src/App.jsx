@@ -48,10 +48,10 @@ function App() {
         position={{ lat: isLat, lng: isLon }}
         clickable={false}
         image={{
-          src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // star mark
+          src: "./assets/marker/marker.png", // star mark
           size: {
-            width: 24,
-            height: 35,
+            width: 30,
+            height: 30,
           },
         }}
       />
@@ -123,7 +123,7 @@ function App() {
           lng: isStartLon ?? 126.9244,
         }} // 현재 위치 시작, default 홍대입구역
         id="Map"
-        level={3} // project: 9
+        level={9} // project: 9
       >
         {getMarkers(markets)}
         {getMyMarker()}
@@ -138,7 +138,13 @@ function App() {
                 <span>마커를 클릭해주세요</span>
               </div>
             ) : (
-              <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+              <a
+                href={`${data[isClicked].link}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+              </a>
             )}
             <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
             <br />
@@ -158,7 +164,9 @@ function App() {
           </div>
         </div>
         <a href="https://bit.ly/3Y3HeJX" target="_blank" rel="noreferrer">
-          <div className="opinion-button">의견 남기기</div>
+          <div className="opinion-button">
+            <span>의견 남기기</span>
+          </div>
         </a>
       </Map>
 
@@ -175,7 +183,13 @@ function App() {
               <span>마커를 클릭해주세요</span>
             </div>
           ) : (
-            <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            <a
+              href={`${data[isClicked].link}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            </a>
           )}
           <br />
           <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
