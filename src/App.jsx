@@ -1,40 +1,62 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import data from "./assets/markets.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./style/App.scss";
 
 function App() {
   const [isClicked, setIsClicked] = useState(0);
-  // const [isChanged, setIsChanged] = useState(false);
-  // const [isLat, setIsLat] = useState();
-  // const [isLon, setIsLon] = useState();
+  const [isLat, setIsLat] = useState();
+  const [isLon, setIsLon] = useState();
+  const [isStartLat, setIsStartLat] = useState();
+  const [isStartLon, setIsStartLon] = useState();
+  const [isSelected, setIsSelected] = useState(0);
   const markets = data;
 
-  /** 현재 위치 정보 -> state isLat, isLon에 저장 */
-  // const getLocate = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(function (position) {
-  //       setIsLat(position.coords.latitude);
-  //       setIsLon(position.coords.longitude);
-  //     });
-  //   }
-  // };
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setIsStartLat(position.coords.latitude);
+        setIsStartLon(position.coords.longitude);
+      });
+    } else {
+      // default: 홍대입구역
+      setIsStartLat(37.5579);
+      setIsStartLon(126.9244);
+    }
+  }, []);
 
-  // 1초마다 갱신
-  // setInterval(() => getLocate(), 1000);
-  // getLocate();
+  /** 현재 위치 정보 -> state isLat, isLon에 저장 */
+  const getLocate = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        setIsLat(position.coords.latitude);
+        setIsLon(position.coords.longitude);
+      });
+    } else {
+      // default: 홍대입구역
+      setIsLat(37.5579);
+      setIsLon(126.9244);
+    }
+  };
+  getLocate();
 
   /** user's location */
-  // const getMyMarkers = () => {
-  //   console.log("Me!");
-  //   return (
-  //     <MapMarker
-  //       key={"myLocation"}
-  //       position={{ lat: isLat, lng: isLon }}
-  //       clickable={true}
-  //     />
-  //   );
-  // };
+  const getMyMarker = () => {
+    return (
+      <MapMarker
+        key={"myLocation"}
+        position={{ lat: isLat, lng: isLon }}
+        clickable={false}
+        image={{
+          src: "./assets/marker/marker.png",
+          size: {
+            width: 30,
+            height: 30,
+          },
+        }}
+      />
+    );
+  };
 
   /** marker */
   const getMarkers = (data) => {
@@ -47,15 +69,16 @@ function App() {
           clickable={true}
           onClick={() => {
             setIsClicked(i);
+            setIsSelected(i);
           }}
-        ></MapMarker>
+        />
       );
     }
     return result;
   };
 
   /** open time and find road */
-  const getOpenTime = () => {
+  const getContent = () => {
     if (isClicked !== 0) {
       return (
         <div id="opentime">
@@ -96,14 +119,14 @@ function App() {
     <div id="App">
       <Map
         center={{
-          lat: 37.5579,
-          lng: 126.9244,
+          lat: isStartLat ?? 37.5579,
+          lng: isStartLon ?? 126.9244,
         }} // 현재 위치 시작, default 홍대입구역
         id="Map"
-        level={9}
+        level={9} // project: 9
       >
         {getMarkers(markets)}
-        {/* {getMyMarkers()} */}
+        {getMyMarker()}
         <div id="info">
           <img src="./assets/logo/모쿠.png" alt="" />
           <span className="line"></span>
@@ -115,7 +138,13 @@ function App() {
                 <span>마커를 클릭해주세요</span>
               </div>
             ) : (
-              <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+              <a
+                href={`${data[isClicked].link}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+              </a>
             )}
             <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
             <br />
@@ -131,11 +160,13 @@ function App() {
             </div>
             <br />
             {/* 영업시간 */}
-            {getOpenTime()}
+            {getContent()}
           </div>
         </div>
         <a href="https://bit.ly/3Y3HeJX" target="_blank" rel="noreferrer">
-          <div className="opinion-button">의견 남기기</div>
+          <div className="opinion-button">
+            <span>의견 남기기</span>
+          </div>
         </a>
       </Map>
 
@@ -152,7 +183,13 @@ function App() {
               <span>마커를 클릭해주세요</span>
             </div>
           ) : (
-            <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            <a
+              href={`${data[isClicked].link}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
+            </a>
           )}
           <br />
           <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>
@@ -168,8 +205,8 @@ function App() {
             </div>
           </a>
           <br />
-          {/* 영업시간 */}
-          {getOpenTime()}
+          {/* 영업시간, 길찾기 */}
+          {getContent()}
           <br />
           <br />
           <br />
