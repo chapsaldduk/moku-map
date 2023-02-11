@@ -21,17 +21,17 @@ function App() {
   };
 
   // 1초마다 갱신
-  setInterval(() => getLocate(), 1000);
+  setInterval(() => getLocate(), 2000);
   getLocate();
 
   /** user's location */
-  const getMyMarkers = () => {
+  const getMyMarker = () => {
     console.log("Me!");
     return (
       <MapMarker
         key={"myLocation"}
         position={{ lat: isLat, lng: isLon }}
-        clickable={true}
+        clickable={false}
       />
     );
   };
@@ -103,7 +103,7 @@ function App() {
         level={3} // project: 9
       >
         {getMarkers(markets)}
-        {getMyMarkers()}
+        {getMyMarker()}
         <div id="info">
           <img src="./assets/logo/모쿠.png" alt="" />
           <span className="line"></span>
