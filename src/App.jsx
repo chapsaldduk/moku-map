@@ -9,22 +9,21 @@ function App() {
   const [isLon, setIsLon] = useState();
   const [isStartLat, setIsStartLat] = useState();
   const [isStartLon, setIsStartLon] = useState();
+  const [isSelected, setIsSelected] = useState(0);
   const markets = data;
 
-useEffect(()=>{
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setIsStartLat(position.coords.latitude);
-      setIsStartLon(position.coords.longitude);
-    });
-  }
-  else{
-    // default: 홍대입구역
-    setIsStartLat(37.5579);
-    setIsStartLon(126.9244);
-}
-}, [])
-
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setIsStartLat(position.coords.latitude);
+        setIsStartLon(position.coords.longitude);
+      });
+    } else {
+      // default: 홍대입구역
+      setIsStartLat(37.5579);
+      setIsStartLon(126.9244);
+    }
+  }, []);
 
   /** 현재 위치 정보 -> state isLat, isLon에 저장 */
   const getLocate = () => {
@@ -33,15 +32,13 @@ useEffect(()=>{
         setIsLat(position.coords.latitude);
         setIsLon(position.coords.longitude);
       });
-    }
-    else{
+    } else {
       // default: 홍대입구역
       setIsLat(37.5579);
       setIsLon(126.9244);
     }
   };
   getLocate();
-
 
   /** user's location */
   const getMyMarker = () => {
@@ -54,7 +51,7 @@ useEffect(()=>{
           src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // star mark
           size: {
             width: 24,
-            height: 35
+            height: 35,
           },
         }}
       />
@@ -72,8 +69,9 @@ useEffect(()=>{
           clickable={true}
           onClick={() => {
             setIsClicked(i);
+            setIsSelected(i);
           }}
-        ></MapMarker>
+        />
       );
     }
     return result;
