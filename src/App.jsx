@@ -103,7 +103,7 @@ function App() {
         level={3} // project: 9
       >
         {getMarkers(markets)}
-        {getMyMarker()}
+        {/* {getMyMarker()} */}
         <div id="info">
           <img src="./assets/logo/모쿠.png" alt="" />
           <span className="line"></span>
