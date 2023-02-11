@@ -71,6 +71,16 @@ function App() {
             setIsClicked(i);
             setIsSelected(i);
           }}
+          image={{
+            src:
+              isSelected === i
+                ? "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
+                : "https://t1.daumcdn.net/mapjsapi/images/marker.png",
+            size: {
+              width: 24,
+              height: 35,
+            },
+          }}
         />
       );
     }
