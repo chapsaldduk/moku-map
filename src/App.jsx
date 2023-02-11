@@ -6,33 +6,35 @@ import "./style/App.scss";
 function App() {
   const [isClicked, setIsClicked] = useState(0);
   // const [isChanged, setIsChanged] = useState(false);
-  // const [isLat, setIsLat] = useState();
-  // const [isLon, setIsLon] = useState();
+  const [isLat, setIsLat] = useState();
+  const [isLon, setIsLon] = useState();
   const markets = data;
 
-  // const getLocate = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(function (position) {
-  //       setIsLat(position.coords.latitude);
-  //       setIsLon(position.coords.longitude);
-  //     });
-  //   }
-  // };
+  /** 현재 위치 정보 -> state isLat, isLon에 저장 */
+  const getLocate = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setIsLat(position.coords.latitude);
+        setIsLon(position.coords.longitude);
+      });
+    }
+  };
 
-  // setInterval(() => getLocate(), 1000);
-  // getLocate();
+  // 1초마다 갱신
+  setInterval(() => getLocate(), 1000);
+  getLocate();
 
   /** user's location */
-  // const getMyMarkers = () => {
-  //   console.log("Me!");
-  //   return (
-  //     <MapMarker
-  //       key={"myLocation"}
-  //       position={{ lat: isLat, lng: isLon }}
-  //       clickable={true}
-  //     />
-  //   );
-  // };
+  const getMyMarkers = () => {
+    console.log("Me!");
+    return (
+      <MapMarker
+        key={"myLocation"}
+        position={{ lat: isLat, lng: isLon }}
+        clickable={true}
+      />
+    );
+  };
 
   /** marker */
   const getMarkers = (data) => {
@@ -89,19 +91,19 @@ function App() {
     return " ";
   };
 
-  //홍대입구역: {lat: 37.5579, lng: 126.9244,}
+  //홍대입구역: {lat: 37.5579, lng: 126.9244}
   return (
     <div id="App">
       <Map
         center={{
-          lat: 37.5579,
-          lng: 126.9244,
+          lat: isLat ?? 37.5579,
+          lng: isLon ?? 126.9244,
         }} // 현재 위치 시작, default 홍대입구역
         id="Map"
-        level={9}
+        level={3} // project: 9
       >
         {getMarkers(markets)}
-        {/* {getMyMarkers()} */}
+        {getMyMarkers()}
         <div id="info">
           <img src="./assets/logo/모쿠.png" alt="" />
           <span className="line"></span>
