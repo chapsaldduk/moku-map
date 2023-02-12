@@ -6,16 +6,8 @@ import useStore from "./store";
 import "./style/App.scss";
 
 function App() {
-  const {
-    isClicked,
-    setIsClicked,
-    centerLocate,
-    setCenter,
-    locate,
-    setLocate,
-    isPanto,
-    setIsPanto,
-  } = useStore();
+  const { isClicked, setIsClicked, centerLocate, locate, setLocate, isPanto } =
+    useStore();
 
   const markets = data;
 
@@ -75,53 +67,6 @@ function App() {
     return result;
   };
 
-  /** open time and find road */
-  const getContent = () => {
-    if (isClicked !== 0) {
-      return (
-        <div id="opentime">
-          <span className="title">영업시간</span>
-          <br />
-          <span>월: {data[isClicked].mon ?? "정보 없음"}</span>
-          <br />
-          <span>화: {data[isClicked].tue ?? "정보 없음"}</span>
-          <br />
-          <span>수: {data[isClicked].wed ?? "정보 없음"}</span>
-          <br />
-          <span>목: {data[isClicked].thu ?? "정보 없음"}</span>
-          <br />
-          <span>금: {data[isClicked].fri ?? "정보 없음"}</span>
-          <br />
-          <span>토: {data[isClicked].sat ?? "정보 없음"}</span>
-          <br />
-          <span>일: {data[isClicked].sun ?? "정보 없음"}</span>
-          <br />
-          <br />
-          <span className="gil">
-            <a
-              href={`https://map.kakao.com/link/to/${data[isClicked].name},${data[isClicked].latitude},${data[isClicked].longitude}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              카카오맵 길찾기
-            </a>
-          </span>
-          <br />
-          <br />
-          <button
-            onClick={() => {
-              setCenter(locate.lat, locate.lon);
-              setIsPanto();
-            }}
-          >
-            현재위치로 이동
-          </button>
-        </div>
-      );
-    }
-    return " ";
-  };
-
   //홍대입구역: {lat: 37.5579, lng: 126.9244}
   return (
     <div id="App">
@@ -136,16 +81,13 @@ function App() {
       >
         {getMarkers(markets)}
         {getMyMarker()}
-
         <ContentPC data={data} />
-
         <a href="https://bit.ly/3Y3HeJX" target="_blank" rel="noreferrer">
           <div className="opinion-button">
             <span>의견 남기기</span>
           </div>
         </a>
       </Map>
-
       <img id="logo-mobile" src="./assets/logo/모쿠.png" alt="" />
       <ContentMobile data={data} />
     </div>
