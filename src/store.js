@@ -15,7 +15,7 @@ const useStore = create((set) => ({
   },
   setCenter: (lat, lon) =>
     set({
-      startLocate: {
+      centerLocate: {
         lat: lat,
         lon: lon,
       },
@@ -36,9 +36,9 @@ const useStore = create((set) => ({
 
   // for map move
   isPanto: false,
-  setIsPanto: (state) =>
+  setIsPanto: (input) =>
     set({
-      isPanto: !state.isPanto,
+      isPanto: input,
     }),
 }));
 

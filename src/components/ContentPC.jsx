@@ -2,7 +2,8 @@ import useStore from "../store";
 
 const ContentPC = (props) => {
   const data = props.data;
-  const { isClicked } = useStore();
+  const { isClicked, setCenter, locate, setIsPanto, isPanto } = useStore();
+
   return (
     <div id="info">
       <img src="./assets/logo/모쿠.png" alt="" />
@@ -66,7 +67,9 @@ const ContentPC = (props) => {
             {/* <button
               onClick={() => {
                 setCenter(locate.lat, locate.lon);
-                setIsPanto();
+                setIsPanto(isPanto === false ? true : false); // zustand에서 state로 접근이 안되서 만든 임시방편
+                console.log(locate);
+                console.log(isPanto);
               }}
             >
               현재위치로 이동
