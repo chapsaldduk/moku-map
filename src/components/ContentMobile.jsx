@@ -15,10 +15,13 @@ const ContentMobile = (props) => {
             <br />
             <span>마커를 클릭해주세요</span>
           </div>
-        ) : (
+        ) : data[isClicked].link !== null &&
+          data[isClicked].link !== undefined ? (
           <a href={`${data[isClicked].link}`} target="_blank" rel="noreferrer">
             <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
           </a>
+        ) : (
+          <div id="title">{data[isClicked].name ?? "이름 정보 없음"}</div>
         )}
         <br />
         <div id="type">{data[isClicked].type ?? "분류 정보 없음"}</div>

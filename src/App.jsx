@@ -3,23 +3,31 @@ import data from "./assets/markets.json";
 import ContentPC from "./components/ContentPC";
 import ContentMobile from "./components/ContentMobile";
 import useStore from "./store";
+import { useEffect } from "react";
 import "./style/App.scss";
 
 function App() {
   const { isClicked, setIsClicked, centerLocate, locate, setLocate, isPanto } =
     useStore();
-
-  const markets = data;
+  useEffect(() => {
+    const getLocate = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(function (position) {
+          setLocate(position.coords.latitude, position.coords.longitude);
+        });
+      }
+    };
+    getLocate();
+  }, []);
 
   /** 현재 위치 정보 -> state isLat, isLon에 저장 */
-  const getLocate = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
-        setLocate(position.coords.latitude, position.coords.longitude);
-      });
-    }
-  };
-  getLocate();
+  // const getLocate = () => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.watchPosition(function (position) {
+  //       setLocate(position.coords.latitude, position.coords.longitude);
+  //     });
+  //   }
+  // };
 
   /** user's location */
   const getMyMarker = () => {
@@ -43,6 +51,7 @@ function App() {
   const getMarkers = (data) => {
     const result = [];
     for (let i = 0; i < Object.keys(data).length; i++) {
+      console.log("Render");
       result.push(
         <MapMarker
           key={i}
@@ -79,7 +88,7 @@ function App() {
         isPanto={isPanto}
         level={9} // project: 9
       >
-        {getMarkers(markets)}
+        {getMarkers(data)}
         {getMyMarker()}
         <ContentPC data={data} />
         <a href="https://bit.ly/3Y3HeJX" target="_blank" rel="noreferrer">
